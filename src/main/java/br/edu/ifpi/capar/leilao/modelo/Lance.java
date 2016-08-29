@@ -16,6 +16,8 @@ public class Lance {
 
     public Lance(Usuario usuario, double valor) {
         this.usuario = usuario;
+        if(valor <= 0)
+            throw new IllegalArgumentException("O valor do lance deve ser positivo");
         this.valor = valor;
     }
 

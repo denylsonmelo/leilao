@@ -19,9 +19,6 @@ public class Leilao {
     private final List<Lance> lances;
 
     public void darLance(Lance lance) {
-        if(lance.getValor() <= 0)
-            throw new IllegalArgumentException("O valor do lance deve ser positivo");
-        
         if (lances.isEmpty() || podeDarLance(lance.getUsuario())) {
             lances.add(lance);
         }
