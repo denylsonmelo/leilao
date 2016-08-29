@@ -11,8 +11,8 @@ package br.edu.ifpi.capar.leilao.modelo;
  */
 public class Lance {
 
-    private Usuario usuario;
-    private double valor;
+    private final Usuario usuario;
+    private final double valor;
 
     public Lance(Usuario usuario, double valor) {
         this.usuario = usuario;
