@@ -6,6 +6,7 @@
 package br.edu.ifpi.capar.leilao.modelo;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -73,6 +74,6 @@ public class Leilao {
     }
 
     public List<Lance> getLances() {
-        return lances;
+        return Collections.unmodifiableList(lances);
     }
 }
