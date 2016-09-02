@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifpi.capar.leilao.modelo;
 
 import java.util.Objects;
@@ -15,11 +10,13 @@ public class Lance {
 
     private final Usuario usuario;
     private final double valor;
+    private int id;
 
     public Lance(Usuario usuario, double valor) {
         this.usuario = usuario;
-        if(valor <= 0)
+        if (valor <= 0) {
             throw new IllegalArgumentException("O valor do lance deve ser positivo");
+        }
         this.valor = valor;
     }
 
@@ -33,14 +30,18 @@ public class Lance {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.usuario);
-        hash = 97 * hash + (int) (Double.doubleToLongBits(this.valor) ^ (Double.doubleToLongBits(this.valor) >>> 32));
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.usuario);
+        hash = 79 * hash + (int) (Double.doubleToLongBits(this.valor) ^ (Double.doubleToLongBits(this.valor) >>> 32));
+        hash = 79 * hash + this.id;
         return hash;
     }
 
     @Override
     public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
         if (obj == null) {
             return false;
         }
@@ -48,12 +49,23 @@ public class Lance {
             return false;
         }
         final Lance other = (Lance) obj;
-        if (!Objects.equals(this.usuario, other.usuario)) {
-            return false;
-        }
         if (Double.doubleToLongBits(this.valor) != Double.doubleToLongBits(other.valor)) {
             return false;
         }
+        if (this.id != other.id) {
+            return false;
+        }
+        if (!Objects.equals(this.usuario, other.usuario)) {
+            return false;
+        }
         return true;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

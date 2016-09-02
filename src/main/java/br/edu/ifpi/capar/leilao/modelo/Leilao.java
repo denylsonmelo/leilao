@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifpi.capar.leilao.modelo;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,8 +12,21 @@ import java.util.List;
 public class Leilao {
 
     private final String descricao;
+    private final LocalDateTime data;
     private final List<Lance> lances;
+    private boolean encerrado;
+    private int id;
 
+    public Leilao(String descricao) {
+       this(descricao, LocalDateTime.now());
+    }
+    
+    public Leilao(String descricao, LocalDateTime data) {
+        this.descricao = descricao;
+        this.data = data;
+        this.lances = new ArrayList<>();
+    }
+    
     public void darLance(Lance lance) {
         if (lances.isEmpty() || podeDarLance(lance.getUsuario())) {
             lances.add(lance);
@@ -30,17 +39,10 @@ public class Leilao {
 
     private boolean naoPodeDarMaisDe5Lances(Usuario usuario) {
         int qtdLances = 0;
-
         for (Lance lance : lances) {
-            if (lance.getUsuario().equals(usuario)) {
-                qtdLances++;
-            }
+            if (lance.getUsuario().equals(usuario))qtdLances++;
         }
-        if (qtdLances < 5) {
-            return true;
-        } else {
-            return false;
-        }
+        return (qtdLances < 5);
     }
 
     private boolean naoPodeDar2LancesSeguidos(Usuario usuario) {
@@ -57,13 +59,7 @@ public class Leilao {
             if(lance.getUsuario().equals(usuario))
                 valorDoUltimoLanceDele = lance.getValor();
         }
-        
         darLance(new Lance(usuario, (valorDoUltimoLanceDele)*2));
-    }
-
-    public Leilao(String descricao) {
-        this.descricao = descricao;
-        this.lances = new ArrayList<>();
     }
 
     public String getDescricao() {
@@ -72,5 +68,25 @@ public class Leilao {
 
     public List<Lance> getLances() {
         return Collections.unmodifiableList(lances);
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+    
+    public void encerra() {
+	this.encerrado = true;
+    }
+
+    public boolean isEncerrado() {
+        return encerrado;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
