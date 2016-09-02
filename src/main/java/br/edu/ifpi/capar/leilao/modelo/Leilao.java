@@ -55,16 +55,6 @@ public class Leilao {
         return lances.get(lances.size() - 1).getUsuario();
     }
 
-    public void dobrarLance(Usuario usuario) {
-        double valorDoUltimoLanceDele = 0;
-        for (Lance lance : lances) {
-            if (lance.getUsuario().equals(usuario)) {
-                valorDoUltimoLanceDele = lance.getValor();
-            }
-        }
-        darLance(new Lance(usuario, (valorDoUltimoLanceDele) * 2));
-    }
-
     public String getDescricao() {
         return descricao;
     }
