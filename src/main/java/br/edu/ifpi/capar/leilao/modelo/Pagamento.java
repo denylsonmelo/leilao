@@ -1,6 +1,6 @@
 package br.edu.ifpi.capar.leilao.modelo;
 
-import java.time.LocalDateTime;
+import java.util.Calendar;
 
 /**
  *
@@ -9,9 +9,9 @@ import java.time.LocalDateTime;
 public class Pagamento {
 
     private final double valor;
-    private final LocalDateTime data;
+    private final Calendar data;
 
-    public Pagamento(double valor, LocalDateTime data) {
+    public Pagamento(double valor, Calendar data) {
         this.valor = valor;
         this.data = data;
     }
@@ -20,7 +20,7 @@ public class Pagamento {
         return valor;
     }
 
-    public LocalDateTime getData() {
+    public Calendar getData() {
         return data;
     }
 }

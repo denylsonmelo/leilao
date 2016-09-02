@@ -1,7 +1,7 @@
 package br.edu.ifpi.capar.leilao.modelo;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 
@@ -12,21 +12,21 @@ import java.util.List;
 public class Leilao {
 
     private final String descricao;
-    private final LocalDateTime data;
+    private final Calendar data;
     private final List<Lance> lances;
     private boolean encerrado;
     private int id;
 
     public Leilao(String descricao) {
-       this(descricao, LocalDateTime.now());
+        this(descricao, Calendar.getInstance());
     }
-    
-    public Leilao(String descricao, LocalDateTime data) {
+
+    public Leilao(String descricao, Calendar data) {
         this.descricao = descricao;
         this.data = data;
         this.lances = new ArrayList<>();
     }
-    
+
     public void darLance(Lance lance) {
         if (lances.isEmpty() || podeDarLance(lance.getUsuario())) {
             lances.add(lance);
@@ -40,7 +40,9 @@ public class Leilao {
     private boolean naoPodeDarMaisDe5Lances(Usuario usuario) {
         int qtdLances = 0;
         for (Lance lance : lances) {
-            if (lance.getUsuario().equals(usuario))qtdLances++;
+            if (lance.getUsuario().equals(usuario)) {
+                qtdLances++;
+            }
         }
         return (qtdLances < 5);
     }
@@ -56,10 +58,11 @@ public class Leilao {
     public void dobrarLance(Usuario usuario) {
         double valorDoUltimoLanceDele = 0;
         for (Lance lance : lances) {
-            if(lance.getUsuario().equals(usuario))
+            if (lance.getUsuario().equals(usuario)) {
                 valorDoUltimoLanceDele = lance.getValor();
+            }
         }
-        darLance(new Lance(usuario, (valorDoUltimoLanceDele)*2));
+        darLance(new Lance(usuario, (valorDoUltimoLanceDele) * 2));
     }
 
     public String getDescricao() {
@@ -70,12 +73,12 @@ public class Leilao {
         return Collections.unmodifiableList(lances);
     }
 
-    public LocalDateTime getData() {
+    public Calendar getData() {
         return data;
     }
-    
+
     public void encerra() {
-	this.encerrado = true;
+        this.encerrado = true;
     }
 
     public boolean isEncerrado() {
