@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.ifpi.capar.leilao.negocio;
 
 import br.edu.ifpi.capar.leilao.modelo.Lance;
@@ -27,7 +22,6 @@ public class Avaliador {
         if (leilao.getLances().isEmpty()) {
             throw new IllegalArgumentException("Não posso avaliar leilão sem lances");
         }
-
         media = 0;
         for (Lance lance : leilao.getLances()) {
             if (lance.getValor() > maiorLance) {
@@ -38,11 +32,15 @@ public class Avaliador {
             }
             media = media + lance.getValor();
         }
-        media = media / leilao.getLances().size();
+        media = calcularMedia(leilao.getLances());
+        calcularTresMaiores(leilao.getLances());
+    }
 
-        tresMaiores = new ArrayList<>(leilao.getLances());
+    private void calcularTresMaiores(List<Lance> lances) {
+        tresMaiores = new ArrayList<>(lances);
         Collections.sort(tresMaiores, new Comparator<Lance>() {
 
+            @Override
             public int compare(Lance lance1, Lance lance2) {
                 if (lance1.getValor() < lance2.getValor()) {
                     return 1;
@@ -54,15 +52,11 @@ public class Avaliador {
             }
         });
 
-        int tamanhoDaLista = 0;
-        if (tresMaiores.size() > 3) {
-            tamanhoDaLista = 3;
+        tresMaiores = tresMaiores.subList(0, tresMaiores.size()>3 ? 3 : tresMaiores.size());
+    }
 
-        } else {
-            tamanhoDaLista = tresMaiores.size();
-        }
-
-        tresMaiores = tresMaiores.subList(0, tamanhoDaLista);
+    private double calcularMedia(List<Lance> lances) {
+        return media / lances.size();
     }
 
     public List<Lance> getTresMaiores() {
