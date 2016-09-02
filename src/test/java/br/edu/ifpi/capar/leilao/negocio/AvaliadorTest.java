@@ -101,7 +101,7 @@ public class AvaliadorTest {
                                         new Lance(user01, 700.0)));
     }
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test(expected = RuntimeException.class)
     public void naoDeveAvaliarLeilaoSemLances() {
         avaliador.avaliar(builderDeLeilao.build());
     }

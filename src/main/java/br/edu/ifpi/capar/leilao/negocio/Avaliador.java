@@ -20,7 +20,7 @@ public class Avaliador {
 
     public void avaliar(Leilao leilao) {
         if (leilao.getLances().isEmpty()) {
-            throw new IllegalArgumentException("Não posso avaliar leilão sem lances");
+            throw new RuntimeException("Não posso avaliar leilão sem lances");
         }
         media = 0;
         for (Lance lance : leilao.getLances()) {
