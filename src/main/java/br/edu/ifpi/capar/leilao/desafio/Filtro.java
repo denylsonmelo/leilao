@@ -21,9 +21,11 @@ public class Filtro {
     public void filtrarLeilao(Leilao leilao){
         lancesFiltrados = new ArrayList<>();
         for (Lance lance : leilao.getLances()) {
-            if(lance.getValor() > 1000 && lance.getValor() < 3000){
+            if((lance.getValor() > 500 && lance.getValor() < 700) ||
+               (lance.getValor() > 1000 && lance.getValor() < 3000) ||
+               (lance.getValor() > 5000)){
                 lancesFiltrados.add(lance);
-            }            
+            }           
         }
     }
 
