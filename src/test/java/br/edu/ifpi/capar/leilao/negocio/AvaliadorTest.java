@@ -6,9 +6,12 @@
 package br.edu.ifpi.capar.leilao.negocio;
 
 import br.edu.ifpi.capar.leilao.builder.LeilaoBuilder;
+import br.edu.ifpi.capar.leilao.modelo.Lance;
 import br.edu.ifpi.capar.leilao.modelo.Usuario;
 import static org.hamcrest.MatcherAssert.assertThat;
+import org.hamcrest.Matchers;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -33,15 +36,12 @@ public class AvaliadorTest {
 
     @Test
     public void deveAvaliarLeilaoEmOrdemCrescente() {
-        //cenario
         builderDeLeilao.darLance(user01, 500)
                 .darLance(user02, 600)
                 .darLance(user01, 700);
         
-        //acao
         avaliador.avaliar(builderDeLeilao.build());
 
-        //validacao
         assertThat(avaliador.getMaiorLance(), equalTo(700.0));
         assertThat(avaliador.getMenorLance(), equalTo(500.0));
         assertThat(avaliador.getMedia(), equalTo(600.0));
@@ -49,14 +49,11 @@ public class AvaliadorTest {
 
     @Test
     public void deveAvaliarLeilaoEmOrdemDecrescente() {
-        //cenario
         builderDeLeilao.darLance(user01, 700)
                        .darLance(user02, 600)
                        .darLance(user01, 500);
-        //acao
         avaliador.avaliar(builderDeLeilao.build());
 
-        //validacao
         assertThat(avaliador.getMaiorLance(), equalTo(700.0));
         assertThat(avaliador.getMenorLance(), equalTo(500.0));
         assertThat(avaliador.getMedia(), equalTo(600.0));
@@ -65,14 +62,11 @@ public class AvaliadorTest {
 
     @Test
     public void deveAvaliarLeilaoEmOrdemRandomica() {
-        //cenario
         builderDeLeilao.darLance(user01, 600)
                        .darLance(user02,500)
                        .darLance(user01, 700);
-        //acao
         avaliador.avaliar(builderDeLeilao.build());
 
-        //validacao
         assertThat(avaliador.getMaiorLance(), equalTo(700.0));
         assertThat(avaliador.getMenorLance(), equalTo(500.0));
         assertThat(avaliador.getMedia(), equalTo(600.0));
@@ -81,13 +75,10 @@ public class AvaliadorTest {
 
     @Test
     public void deveAvaliarLeilaoDeUmLanceSo() {
-        //cenario
         builderDeLeilao.darLance(user01, 500);
         
-        //acao
         avaliador.avaliar(builderDeLeilao.build());
 
-        //validacao
         assertThat(avaliador.getMaiorLance(), equalTo(500.0));
         assertThat(avaliador.getMenorLance(), equalTo(500.0));
         assertThat(avaliador.getMedia(), equalTo(500.0));
@@ -95,26 +86,23 @@ public class AvaliadorTest {
 
     @Test
     public void deveRetornar3MaioresLances() {
-        //cenario
         builderDeLeilao.darLance(user01, 600)
                 .darLance(user02, 500)
                 .darLance(user01, 700)
                 .darLance(user02, 800)
                 .darLance(user01, 900);
         
-        //acao
         avaliador.avaliar(builderDeLeilao.build());
 
-        //validacao
         assertThat(avaliador.getTresMaiores().size(), equalTo(3));
-        assertThat(avaliador.getTresMaiores().get(0).getValor(), equalTo(900.0));
-        assertThat(avaliador.getTresMaiores().get(1).getValor(), equalTo(800.0));
-        assertThat(avaliador.getTresMaiores().get(2).getValor(), equalTo(700.0));
+        assertThat(avaliador.getTresMaiores(), hasItems(
+                                        new Lance(user01, 900.0),
+                                        new Lance(user02, 800.0),
+                                        new Lance(user01, 700.0)));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void naoDeveAvaliarLeilaoSemLances() {
         avaliador.avaliar(builderDeLeilao.build());
-        
     }
 }

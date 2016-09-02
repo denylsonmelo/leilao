@@ -28,7 +28,6 @@ public class FiltroTest {
         user01 = new Usuario("Usuario 01");
         user02 = new Usuario("Usuario 02");
         filtro = new Filtro();
-        builderDeLeilao = new LeilaoBuilder();
         builderDeLeilao = new LeilaoBuilder().para("Leilao para alguma coisa!!");
         
     }

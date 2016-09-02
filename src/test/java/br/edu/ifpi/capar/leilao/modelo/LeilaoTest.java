@@ -3,6 +3,8 @@ package br.edu.ifpi.capar.leilao.modelo;
 import br.edu.ifpi.capar.leilao.builder.LeilaoBuilder;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
@@ -34,8 +36,9 @@ public class LeilaoTest {
         builderDeLeilao.darLance(genji, 1000);
         leilao = builderDeLeilao.build();
 
-        assertEquals(1, leilao.getLances().size());
-        assertEquals(1000, leilao.getLances().get(0).getValor(), 0.000000001);
+        assertThat(leilao.getLances(), hasSize(1));
+        //assertThat(leilao,temUmLance(lance));
+        assertThat(leilao.getLances(), hasItems(new Lance(genji, 1000)));
     }
 
     @Test
@@ -45,10 +48,11 @@ public class LeilaoTest {
                 .darLance(genji, 500);
         leilao = builderDeLeilao.build();
 
-        assertEquals(3, leilao.getLances().size());
-        assertEquals(1000, leilao.getLances().get(0).getValor(), 0.000000001);
-        assertEquals(2000, leilao.getLances().get(1).getValor(), 0.000000001);
-        assertEquals(500, leilao.getLances().get(2).getValor(), 0.000000001);
+        assertThat(leilao.getLances(), hasSize(3));
+        assertThat(leilao.getLances(), hasItems(
+                new Lance(genji, 1000),
+                new Lance(hanzo, 2000),
+                new Lance(genji, 500)));
     }
 
     @Test
