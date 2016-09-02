@@ -25,7 +25,7 @@ public class LeilaoDao {
     public LeilaoDao() {
         try {
             this.conexao = DriverManager.getConnection(
-                    "jdbc:mysql://localhost/mocks", "root", "");
+                    "jdbc:mysql://localhost/leilao?useTimezone=true&serverTimezone=UTC", "root", "root");
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -54,7 +54,7 @@ public class LeilaoDao {
 
             for (Lance lance : leilao.getLances()) {
                 sql = "INSERT INTO LANCES (LEILAO_ID, USUARIO_ID, VALOR) VALUES (?,?,?);";
-                PreparedStatement ps2 = conexao.prepareStatement(sql);
+                PreparedStatement ps2 = conexao.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 ps2.setInt(1, leilao.getId());
                 ps2.setInt(2, lance.getUsuario().getId());
                 ps2.setDouble(3, lance.getValor());
