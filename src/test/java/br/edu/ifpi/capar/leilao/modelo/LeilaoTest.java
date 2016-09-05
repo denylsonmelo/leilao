@@ -2,7 +2,6 @@ package br.edu.ifpi.capar.leilao.modelo;
 
 import br.edu.ifpi.capar.leilao.builder.LeilaoBuilder;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
 import static org.junit.Assert.assertEquals;
@@ -61,8 +60,8 @@ public class LeilaoTest {
                 .darLance(genji, 2000);
         leilao = builderDeLeilao.build();
 
-        assertEquals(1, leilao.getLances().size());
-        assertEquals(1000, leilao.getLances().get(0).getValor(), 0.000000001);
+        assertThat(leilao.getLances(), hasSize(1));
+        assertThat(leilao.getLances(), hasItems(new Lance(genji, 1000)));
     }
 
     @Test
@@ -73,17 +72,19 @@ public class LeilaoTest {
                 .darLance(hanzo, 10000).darLance(genji, 11000).darLance(hanzo, 12000);
 
         leilao = builderDeLeilao.build();
-        assertEquals(10, leilao.getLances().size());
-        assertEquals(1000, leilao.getLances().get(0).getValor(), 0.000000001);
-        assertEquals(2000, leilao.getLances().get(1).getValor(), 0.000000001);
-        assertEquals(3000, leilao.getLances().get(2).getValor(), 0.000000001);
-        assertEquals(4000, leilao.getLances().get(3).getValor(), 0.000000001);
-        assertEquals(5000, leilao.getLances().get(4).getValor(), 0.000000001);
-        assertEquals(6000, leilao.getLances().get(5).getValor(), 0.000000001);
-        assertEquals(7000, leilao.getLances().get(6).getValor(), 0.000000001);
-        assertEquals(8000, leilao.getLances().get(7).getValor(), 0.000000001);
-        assertEquals(9000, leilao.getLances().get(8).getValor(), 0.000000001);
-        assertEquals(10000, leilao.getLances().get(9).getValor(), 0.000000001);
+       
+        assertThat(leilao.getLances(), hasSize(10));
+        assertThat(leilao.getLances(), hasItems(
+                new Lance(genji, 1000),
+                new Lance(hanzo, 2000),
+                new Lance(genji, 3000),
+                new Lance(hanzo, 4000),
+                new Lance(genji, 5000),
+                new Lance(hanzo, 6000),
+                new Lance(genji, 7000),
+                new Lance(hanzo, 8000),
+                new Lance(genji, 9000),
+                new Lance(hanzo, 10000)));
     }
 
     @Test
@@ -92,9 +93,10 @@ public class LeilaoTest {
                 .dobrarLanceDo(genji);
         leilao = builderDeLeilao.build();
 
-        assertThat(leilao.getLances().size(), equalTo(3));
-        assertThat(leilao.getLances().get(0).getValor(), equalTo(1500.0));
-        assertThat(leilao.getLances().get(1).getValor(), equalTo(2000.0));
-        assertThat(leilao.getLances().get(2).getValor(), equalTo(3000.0));
+        assertThat(leilao.getLances(), hasSize(3));
+        assertThat(leilao.getLances(), hasItems(
+                new Lance(genji, 1500),
+                new Lance(hanzo, 2000),
+                new Lance(genji, 3000)));
     }
 }

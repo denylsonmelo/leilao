@@ -4,7 +4,6 @@ import br.edu.ifpi.capar.leilao.builder.LeilaoBuilder;
 import br.edu.ifpi.capar.leilao.modelo.Lance;
 import br.edu.ifpi.capar.leilao.modelo.Usuario;
 import static org.hamcrest.MatcherAssert.assertThat;
-import org.hamcrest.Matchers;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
 import org.junit.Before;
