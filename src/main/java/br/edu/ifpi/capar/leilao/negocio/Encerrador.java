@@ -1,6 +1,7 @@
 package br.edu.ifpi.capar.leilao.negocio;
 
 import br.edu.ifpi.capar.leilao.infra.dao.LeilaoDao;
+import br.edu.ifpi.capar.leilao.infra.dao.LeilaoDaoFalso;
 import br.edu.ifpi.capar.leilao.modelo.Leilao;
 import java.util.Calendar;
 import java.util.List;
