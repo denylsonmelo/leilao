@@ -1,6 +1,7 @@
 package br.edu.ifpi.capar.leilao.modelo;
 
 import br.edu.ifpi.capar.leilao.builder.LeilaoBuilder;
+import static br.edu.ifpi.capar.leilao.matcher.LeilaoMatcher.temUmUnicoLance;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
 import static org.hamcrest.Matchers.hasSize;
@@ -35,9 +36,7 @@ public class LeilaoTest {
         builderDeLeilao.darLance(genji, 1000);
         leilao = builderDeLeilao.build();
 
-        assertThat(leilao.getLances(), hasSize(1));
-        //assertThat(leilao,temUmLance(lance));
-        assertThat(leilao.getLances(), hasItems(new Lance(genji, 1000)));
+        assertThat(leilao,temUmUnicoLance(new Lance(genji, 1000)));
     }
 
     @Test

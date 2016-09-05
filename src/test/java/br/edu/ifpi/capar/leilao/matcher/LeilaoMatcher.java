@@ -10,7 +10,7 @@ import org.hamcrest.TypeSafeMatcher;
  *
  * @author 2155060
  */
-public class LeilaoMatcher extends TypeSafeMatcher {
+public class LeilaoMatcher extends TypeSafeMatcher<Leilao> {
 
     private final Lance lance;
 
@@ -19,8 +19,8 @@ public class LeilaoMatcher extends TypeSafeMatcher {
     }
 
     @Override
-    protected boolean matchesSafely(Object t) {
-        return true; //t.getLances().contains(lance);
+    protected boolean matchesSafely(Leilao item) {
+        return item.getLances().contains(lance) && item.getLances().size() == 1;
     }
 
     @Override
@@ -28,7 +28,7 @@ public class LeilaoMatcher extends TypeSafeMatcher {
         d.appendText("leilao tem um lance com valor igual a " + lance.getValor());
     }
 
-    public static Matcher<Leilao> temUmLance(Lance lance) {
+    public static Matcher<Leilao> temUmUnicoLance(Lance lance) {
         return new LeilaoMatcher(lance);
     }
 }
