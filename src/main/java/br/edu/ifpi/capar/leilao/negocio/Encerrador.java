@@ -13,9 +13,13 @@ import java.util.List;
 public class Encerrador {
 
     private int total = 0;
+    private final LeilaoDao dao;
+
+    public Encerrador(LeilaoDao dao) {
+        this.dao = dao;
+    }
 
     public void encerra() {
-        LeilaoDao dao = new LeilaoDao();
         List<Leilao> todosLeiloesCorrentes = dao.correntes();
 
         for (Leilao leilao : todosLeiloesCorrentes) {

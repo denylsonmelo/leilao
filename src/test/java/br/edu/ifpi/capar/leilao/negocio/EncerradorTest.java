@@ -32,10 +32,10 @@ public class EncerradorTest {
         Leilao leilao2 = new LeilaoBuilder().para("leilao para outra coisa")
                 .naData(antigaMais1).build();
 
-        Encerrador encerrador = new Encerrador();
 
-        LeilaoDao dao = mock(LeilaoDao.class);
-        when(dao.correntes()).thenReturn(Arrays.asList(leilao1,leilao2));
+        LeilaoDao daoFalso = mock(LeilaoDao.class);
+        Encerrador encerrador = new Encerrador(daoFalso);
+        when(daoFalso.correntes()).thenReturn(Arrays.asList(leilao1,leilao2));
 
         //acao
         encerrador.encerra();
