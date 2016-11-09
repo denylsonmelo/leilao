@@ -11,7 +11,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -95,6 +97,20 @@ public class EncerradorTest {
         when(daoFalso.correntes()).thenReturn(Arrays.asList(leilao));
         encerrador.encerra();
 
+        assertThat(encerrador.getTotalEncerrados(), is(1));
+        assertTrue(leilao.isEncerrado());
+    }
+    
+    @Test
+    public void garanteQueAtualizaFoiInvocado(){
+        Calendar data = Calendar.getInstance();
+        data.add(Calendar.DAY_OF_MONTH, -10);
+        Leilao leilao = leilaoBuilder1.naData(data).build();
+
+        when(daoFalso.correntes()).thenReturn(Arrays.asList(leilao));
+        encerrador.encerra();
+
+        verify(daoFalso, atLeastOnce()).atualiza(leilao);
         assertThat(encerrador.getTotalEncerrados(), is(1));
         assertTrue(leilao.isEncerrado());
     }
