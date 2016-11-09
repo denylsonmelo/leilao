@@ -6,6 +6,7 @@ import br.edu.ifpi.capar.leilao.modelo.Usuario;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItems;
+import static org.hamcrest.Matchers.is;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -48,7 +49,7 @@ public class AvaliadorTest {
                        .darLance(user01, 500);
         avaliador.avaliar(builderDeLeilao.build());
 
-        assertThat(avaliador.getMaiorLance(), equalTo(700.0));
+        assertThat(avaliador.getMaiorLance(), is(700.0));
         assertThat(avaliador.getMenorLance(), equalTo(500.0));
         assertThat(avaliador.getMedia(), equalTo(600.0));
 
